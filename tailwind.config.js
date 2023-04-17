@@ -11,6 +11,9 @@ module.exports = {
 
     theme: {
         extend: {
+            container: {
+                center: true,
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

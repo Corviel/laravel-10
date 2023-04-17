@@ -1,17 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Repositories\BannerRepository;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BannerController extends Controller
 {
+
+    public function __construct(BannerRepository $banner)
+    {
+        $this->banner = $banner;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/Banners/List', [
+            'banners' => $this->banner->listAll()
+        ]);
     }
 
     /**
@@ -19,7 +30,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Banners/Create');
     }
 
     /**
