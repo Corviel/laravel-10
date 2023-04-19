@@ -1,57 +1,44 @@
-import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Cross1Icon } from "@radix-ui/react-icons";
 
-export default function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
-    const close = () => {
-        if (closeable) {
-            onClose();
-        }
-    };
-
-    const maxWidthClass = {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
-    }[maxWidth];
-
-    return (
-        <Transition show={show} as={Fragment} leave="duration-200">
-            <Dialog
-                as="div"
-                id="modal"
-                className="fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all"
-                onClose={close}
-            >
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
+export const ModalContent = React.forwardRef(
+    ({ title, description, children, ...props }, forwardedRef) => (
+        <DialogPrimitive.Portal>
+            <DialogPrimitive.Overlay className="bg-[hsla(0,_0%,_0%,_0.439)] data-[state=open]:animate-overlayShow fixed inset-0 grid place-items-center overflow-y-auto py-8">
+                <DialogPrimitive.Content
+                    className="data-[state=open]:animate-contentShow relative rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+                    {...props}
+                    ref={forwardedRef}
                 >
-                    <div className="absolute inset-0 bg-gray-500/75" />
-                </Transition.Child>
+                    {title && (
+                        <DialogPrimitive.Title className="text-neutral-900 m-0 text-[17px] font-medium">
+                            {title}
+                        </DialogPrimitive.Title>
+                    )}
 
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    enterTo="opacity-100 translate-y-0 sm:scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                >
-                    <Dialog.Panel
-                        className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
-                    >
-                        {children}
-                    </Dialog.Panel>
-                </Transition.Child>
-            </Dialog>
-        </Transition>
-    );
-}
+                    {description && (
+                        <DialogPrimitive.Description className="text-neutral-500 mt-[10px] mb-5 text-[15px] leading-normal max-w-[80ch]">
+                            {description}
+                        </DialogPrimitive.Description>
+                    )}
+
+                    {children}
+
+                    <DialogPrimitive.Close aria-label="Close">
+                        <button
+                            className="text-red-500 hover:bg-red-300 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+                            aria-label="Close"
+                        >
+                            <Cross1Icon />
+                        </button>
+                    </DialogPrimitive.Close>
+                </DialogPrimitive.Content>
+            </DialogPrimitive.Overlay>
+        </DialogPrimitive.Portal>
+    )
+);
+
+export const Modal = DialogPrimitive.Root;
+export const ModalTrigger = DialogPrimitive.Trigger;
+export const ModalClose = DialogPrimitive.Close;

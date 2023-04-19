@@ -30,7 +30,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Banners/Create');
+        return Inertia::render('Admin/Banners/Form');
     }
 
     /**
