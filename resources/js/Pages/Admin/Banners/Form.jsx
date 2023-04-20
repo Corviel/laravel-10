@@ -15,7 +15,7 @@ export default function BannerForm({ auth }) {
                     </div>
                 }
             >
-                <h1>Hello</h1>
+                
             </AuthenticatedLayout>
         </>
     );

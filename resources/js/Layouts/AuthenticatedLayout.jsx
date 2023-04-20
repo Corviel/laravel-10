@@ -1,9 +1,17 @@
 import { useState } from "react";
 import ApplicationLogo from "@/Components/shared/ApplicationLogo";
-import Dropdown from "@/Components/shared/Dropdown";
 import NavLink from "@/Components/shared/NavLink";
 import ResponsiveNavLink from "@/Components/shared/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import {
+    Dropdown,
+    DropdownTrigger,
+    DropdownContent,
+    DropdownLabel,
+    DropdownItem,
+} from "@/Components/shared/Dropdown";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -12,7 +20,7 @@ export default function Authenticated({ user, header, children }) {
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
-                <div className="container flex justify-between max-sm:px-2">
+                <div className="container flex justify-between">
                     <div className="flex">
                         <div className="py-4 shrink-0 flex items-center">
                             <Link href="/">
@@ -36,45 +44,35 @@ export default function Authenticated({ user, header, children }) {
                         </div>
                     </div>
 
-                    <div className="relative hidden sm:flex sm:items-center"> 
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <span className="inline-flex rounded-md">
-                                        <button
-                                            type="button"
-                                            className="inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                        >
-                                            {user.name}
+                    <div className="relative hidden sm:flex sm:items-center">
+                        <Dropdown>
+                            <DropdownTrigger className="text-gray-500 text-sm font-medium inline-flex gap-2">
+                                {user.name}
 
-                                            <svg
-                                                className="ml-2 -mr-0.5 h-4 w-4"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </span>
-                                </Dropdown.Trigger>
-
-                                <Dropdown.Content>
-                                    <Dropdown.Link href={route("profile.edit")}>
-                                        Profile
-                                    </Dropdown.Link>
-                                    <Dropdown.Link
-                                        href={route("logout")}
-                                        method="post"
-                                        as="button"
+                                <ChevronDownIcon className="relative top-[1px]" />
+                            </DropdownTrigger>
+                            <DropdownContent>
+                                <DropdownLabel className="text-[#6f6e77] text-xs leading-[25px] px-4">
+                                    Perfil
+                                </DropdownLabel>
+                                <DropdownItem className="hover:border-none">
+                                    <Link
+                                        className="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                                        href={route("profile.edit")}
                                     >
-                                        Log Out
-                                    </Dropdown.Link>
-                                </Dropdown.Content>
-                            </Dropdown>
+                                        Editar
+                                    </Link>
+                                </DropdownItem>
+                                <DropdownItem className="hover:border-none">
+                                    <Link
+                                        className="block rounded-b-md w-full px-4 py-2 text-left text-sm leading-5 text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                                        href={route("logout")}
+                                    >
+                                        Sair
+                                    </Link>
+                                </DropdownItem>
+                            </DropdownContent>
+                        </Dropdown>
                     </div>
 
                     <div className="flex items-center sm:hidden">
@@ -151,7 +149,10 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3">
-                            <ResponsiveNavLink href={route("profile.edit")} active={route().current("profile.edit")}>
+                            <ResponsiveNavLink
+                                href={route("profile.edit")}
+                                active={route().current("profile.edit")}
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink

@@ -48,8 +48,8 @@ export default function DeleteUserForm({ className = '' }) {
             </header>
 
             <Modal>
-                <ModalTrigger>
-                    <DangerButton onClick={confirmUserDeletion}>Delete Account</DangerButton>
+                <ModalTrigger className="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    Delete Account
                 </ModalTrigger>
 
                 <ModalContent title="Tem certeza que quer deletar sua conta?" description="Depois que sua conta for deletada, todos os recursos e dados serão permanentemente excluídos. Por favor insira sua senha para confirmar que deseja permanentemente deletar a sua conta.">

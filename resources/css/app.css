@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .container {
-    @apply lg:max-w-[1200px]
+    @apply lg:max-w-[1200px] max-sm:px-4
 }
 
 .btn-primary {
